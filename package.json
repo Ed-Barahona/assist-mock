@@ -4,6 +4,7 @@
   "description": "Assist API mock services",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "npm test"
   },
   "author": "Ed Barahona",
