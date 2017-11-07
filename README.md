@@ -1,18 +1,28 @@
 # assist-mock
 
-Available endpoints:
+# Available endpoints:
 
-POST:
+## POST:
 Post messages:
 /facebook/me/messages
-GET: 
+## GET: 
+
 Get message list:
+
 /facebook/me/messages
+
 Reset messages
+
 /facebook/me/messages/reset
+
 Get current count
+
 /facebook/me/count
+
 Reset count
+
 /facebook/me/count/reset
+
 Reset both messages and count
+
 /facebook/me/reset 
