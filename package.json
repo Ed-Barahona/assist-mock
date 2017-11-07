@@ -1,0 +1,16 @@
+{
+  "name": "assist-mock",
+  "version": "1.0.0",
+  "description": "Assist API mock services",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Ed Barahona",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^1.27.0",
+    "express": "^4.16.2",
+    "mongo-in-memory": "0.0.5"
+  }
+}
