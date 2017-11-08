@@ -3,11 +3,18 @@
 Usage:
 Change the FB URL in the Facebook APP config file to "HOST_URL/facebook/" ie; "assist-mock.narvar.qa/facebook/
 
+* The facebook App has /me/messages built into the app, only the Host URL is configurable via the configuration file.
+
 # Available endpoints:
 
 ## POST:
+
 Post messages:
+
 /facebook/me/messages
+
+Example: http://assist-mock.narvar.qa/facebook/me/messages
+
 ## GET: 
 
 Get message list:
