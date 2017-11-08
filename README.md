@@ -1,5 +1,8 @@
 # assist-mock
 
+Usage:
+Change the FB URL in the Facebook APP config file to "HOST_URL/facebook/" ie; "assist-mock.narvar.qa/facebook/
+
 # Available endpoints:
 
 ## POST:
