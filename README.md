@@ -5,6 +5,10 @@ Change the FB URL in the Facebook APP config file to "HOST_URL/facebook/" ie; "a
 
 * The facebook App has /me/messages built into the app, only the Host URL is configurable via the configuration file.
 
+# Install 
+npm install
+npm start
+
 # Available endpoints:
 
 ## POST:
