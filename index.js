@@ -170,7 +170,7 @@ function resetMessages(){
 
 // NOTIFY API helpers
 const pushNotifyMessage = function(message){
-    Messages.push(message);
+    notifyMessages.push(message);
     notifyCounter.count ++;
 }
 
