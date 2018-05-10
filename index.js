@@ -28,8 +28,16 @@ let counter = {
 
 let fbMessages = [];
 
+// Data Stores - Schemaless
+let notifyCounter = {
+    type: 'message',
+    count: 0
+};
 
-// API Routes
+let notifyMessages = [];
+
+
+// FACEBOOK API Routes
 app.get('/facebook/me/count', function(req, res, next){
     res.status(200).json(counter);
 });
@@ -76,6 +84,53 @@ app.get('/facebook/me/reset', function(req, res, next){
 });
 
 
+// NOTIFY API Routes
+app.get('/notify/me/count', function(req, res, next){
+    res.status(200).json(notifyCounter);
+});
+
+app.get('/notify/me/count/reset', function(req, res, next){
+    resetNotify();
+    res.status(200).json({
+        message: 'Counter has been reset'
+    });
+});
+
+app.post('/notify/me/messages', function(req, res, next){
+    
+    const notifyMessage = req;
+    
+    pushNotifyMessage(notifyMessage)
+    
+    res.status(200).json({
+        message: 'message received', 
+        message_data: notifyMessage
+    });
+});
+
+app.get('/notify/me/messages', function(req, res, next){
+    
+    res.status(200).json({
+        messages: notifyMessages
+    });
+});
+
+app.get('/notify/me/messages/reset', function(req, res, next){
+    resetNotifyMessages();
+    res.status(200).json({
+        message: 'Messages have been deleted'
+    });
+});
+
+app.get('/notify/me/reset', function(req, res, next){
+    resetNotifyMessages();
+    resetNotifyCounter();
+    res.status(200).json({
+        message: 'Messages and counter have been reset'
+    });
+});
+
+
 // API Helpers
 const pushMessage = function(message){
     fbMessages.push(message);
@@ -111,6 +166,22 @@ function resetCounter(){
 
 function resetMessages(){
     fbMessages = [];
+}
+
+// NOTIFY API helpers
+const pushNotifyMessage = function(message){
+    Messages.push(message);
+    notifyCounter.count ++;
+}
+
+
+function resetNotifyCounter(){
+    notifyCounter.count = 0;
+    notifyCounter.type = null;
+}
+
+function resetNotifyMessages(){
+    notifyMessages = [];
 }
 
 // Response Handlers
