@@ -13,7 +13,9 @@ const ALLOWED_DOMAINS = (process.env.ALLOWED_DOMAINS) ?
   (process.env.ALLOWED_DOMAINS) :
   config.get('allowed_domains');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb'}));
+
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 
 app.set('port', process.env.PORT || config.get('port'));
 
@@ -50,19 +52,32 @@ app.get('/facebook/me/count/reset', function(req, res, next){
 });
 
 app.post('/facebook/me/messages', function(req, res, next){
-    
+
     const fbMessage = req.body;
-    
+
     pushMessage(fbMessage)
-    
+
     res.status(200).json({
-        message: 'message received', 
+        message: 'message received',
+        message_data: fbMessage
+    });
+});
+
+app.post('/facebook/me/messages/email/sparkpost', function(req, res, next){
+
+    const fbMessage = req.body;
+
+    pushMessage(fbMessage)
+    console.log("fb_message", req);
+
+    res.status(200).json({
+        message: 'message received',
         message_data: fbMessage
     });
 });
 
 app.get('/facebook/me/messages', function(req, res, next){
-    
+
     res.status(200).json({
         messages: fbMessages
     });
@@ -97,19 +112,19 @@ app.get('/notify/me/count/reset', function(req, res, next){
 });
 
 app.post('/notify/me/messages', function(req, res, next){
-    
+
     const notifyMessage = req;
-    
+
     pushNotifyMessage(notifyMessage)
-    
+
     res.status(200).json({
-        message: 'message received', 
+        message: 'message received',
         message_data: notifyMessage
     });
 });
 
 app.get('/notify/me/messages', function(req, res, next){
-    
+
     res.status(200).json({
         messages: notifyMessages
     });
@@ -139,11 +154,11 @@ const pushMessage = function(message){
 }
 
 function messageHandler(event){
-  
+
   if(!event.message){
       return;
   }
-    
+
   const fbLikeSticker       = '369239263222822',
         fbLikeStickerMedium = '369239343222814',
         fbLikeStickerBig    = '369239383222810';
@@ -185,19 +200,19 @@ function resetNotifyMessages(){
 }
 
 // Response Handlers
-// Success 
+// Success
 function success(response, data) {
     response.writeHead(200, {
         "Content-Type" : "application/json"
     });
-    
+
     response.end(JSON.stringify({
         error : null,
         data : data
     }));
 }
 
-// Failure 
+// Failure
 function failure(response, err) {
     response.writeHead(err.code, {
         "Content-Type" : "application/json"
