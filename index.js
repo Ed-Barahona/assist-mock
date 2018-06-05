@@ -67,12 +67,16 @@ app.post('/facebook/me/messages/email/sparkpost', function(req, res, next){
 
     const fbMessage = req.body;
 
-    pushMessage(fbMessage)
-    console.log("fb_message", req);
+    pushMessage(fbMessage);
 
+    // res.status(200).json({
+    //     message: 'message received',
+    //     message_data: fbMessage
+    // });
     res.status(200).json({
-        message: 'message received',
-        message_data: fbMessage
+        status: "OK",
+        status_code: 200,
+        messages: []
     });
 });
 
